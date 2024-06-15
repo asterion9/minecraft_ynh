@@ -19,7 +19,7 @@ ram.runtime = "500M"
     [resources.sources]
         [resources.sources.main]
         url = "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.21.0.03.zip"
-        sha256 = "66D035A4A756DD95F5242E395D637F27D8EF7C356677E6E234482A4F90D565C8"
+        sha256 = "66d035a4a756dd95f5242e395d637f27d8ef7c356677e6e234482a4f90d565c8"
         in_subdir = false
         extract = true
 
