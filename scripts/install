@@ -13,46 +13,22 @@ source /usr/share/yunohost/helpers
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
-gamemode=survival
-level_seed=""
-max_players=20
-motd="A Minecraft Server"
-#password=$YNH_APP_ARG_PASSWORD
-
 #=================================================
 # STORE SETTINGS FROM MANIFEST
 #=================================================
-
-ynh_app_setting_set --app=$app --key=gamemode --value=$gamemode
-ynh_app_setting_set --app=$app --key=level_seed --value=$level_seed
-ynh_app_setting_set --app=$app --key=max_players --value=$max_players
-ynh_app_setting_set --app=$app --key=motd --value=$motd
-ynh_app_setting_set --app=$app --key=password --value=$password
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression --message="Setting up source files..." --weight=10
 
-ynh_setup_source --dest_dir="$install_dir" --source_id="$server"
+ynh_setup_source --dest_dir="$install_dir" --source_id="main" --keep="worlds allowlist.json permissions.json server.properties"
 
-mkdir -p "$install_dir/mcrcon"
-ynh_setup_source --dest_dir="$install_dir/mcrcon" --source_id="mcrcon"	
-
-chmod 755 "$install_dir"
-chmod -R o-rwx "$install_dir"
-chown -R $app:www-data "$install_dir"
-chmod +x "$install_dir/mcrcon/mcrcon"
-chmod +x "$install_dir/server.jar"
+chmod o+x "$install_dir/bedrock_server"
 
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Configuring configuration files..." --weight=2
-
-ynh_add_config --template="server.properties" --destination="$install_dir/server.properties"
-ynh_add_config --template="ops.txt" --destination="$install_dir/ops.txt"
-ynh_add_config --template="eula.txt" --destination="$install_dir/eula.txt"
 
 #=================================================
 # SETUP SYSTEMD
@@ -68,7 +44,7 @@ yunohost service add $app --description="Three-dimensional sandbox construction 
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=3
 
-ynh_systemd_action --service_name=$app --action=start --log_path=systemd --line_match="RCON running on"
+ynh_systemd_action --service_name=$app --action=start --log_path=systemd --line_match=".*INFO] Server started."
 
 #=================================================
 # END OF SCRIPT

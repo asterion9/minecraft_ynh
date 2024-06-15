@@ -1,97 +1,31 @@
 packaging_format = 2
 
-id = "minecraft"
-name = "Minecraft"
+id = "minecraft_bedrock"
+name = "Minecraft Bedrock Server"
 description.en = "Three-dimensional sandbox construction game"
-description.fr = "Jeu de construction de type \"bac à sable\" en trois dimensions"
 
-version = "1.20.4~ynh1"
-
-maintainers = []
-
-[upstream]
-license = "non-free"
-website = "https://www.minecraft.net/"
-admindoc = "https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_server"
+version = "1.20.71~ynh1"
 
 [integration]
 yunohost = ">= 11.2"
-architectures = "all"
+architectures = ["amd64"]
 multi_instance = false
 
-ldap = "not_relevant"
-
-sso = "not_relevant"
-
-disk = "50M"
+disk = "100M"
 ram.build = "50M"
-ram.runtime = "50M"
-
-[install]
-    [install.server]
-    ask.en = "Select your server"
-    ask.fr = "Choisir votre serveur"
-    type = "select"
-    choices = ["vanilla", "vanilla-snapshot", "paper", "spigot"]
-    default = "vanilla"
-
-    [install.ram]
-    ask.en = "Set the memory limit for the server. Convert the number to mebibytes (binary MB): for example, 2GB = 2048, 4GB = 4096..."
-    ask.fr = "Définir la mémoire du serveur ? Convertir le chiffre en mébioctets (Mo binaires) : soit 2Go = 2048, 4Go = 4096..."
-    type = "select"
-    choices = ["1024", "2048", "4096"]
-    default = "2048"
-
-    [install.op]
-    ask.en = "Enter the administrator name (Minecraft pseudo)"
-    ask.fr = "Entrer le nom de l'adminsitrateur (pseudo Minecraft)"
-    type = "string"
-
-    [install.password]
-    help.en = "Enter the RCON password"
-    help.fr = "Entrer le mot de passe RCON"
-    type = "password"
+ram.runtime = "500M"
 
 [resources]
     [resources.sources]
-        [resources.sources.mcrcon]
-        url = "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.2/mcrcon-0.7.2-linux-x86-64.tar.gz"
-        sha256 = "c1883c3f6610c751c935f4faefbf2c52f704a0f71013be2928972eef5918cb68"
+        [resources.sources.main]
+        url = "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.20.71.01.zip"
+        sha256 = "47730ab2692c03870b5879b81aa763130fc4d120fe3cf36073c7d906b1a8065c"
         in_subdir = false
-
-        [resources.sources.paper]
-        url = "https://api.papermc.io/v2/projects/paper/versions/1.20.1/builds/150/downloads/paper-1.20.1-150.jar"
-        sha256 = "e396b6fb8e511c7042652ec31bbd4936196098b96be913566dfa89f34dfe7e3d"
-        rename = "server.jar"
-        in_subdir = false
-        extract = false
-
-        [resources.sources.vanilla]
-        url = "https://piston-data.mojang.com/v1/objects/8dd1a28015f51b1803213892b50b7b4fc76e594d/server.jar"
-        sha256 = "c03fa6f39daa69ddf413c965a3a83084db746a7a138ce535a693293b5472d363"
-        rename = "server.jar"
-        in_subdir = false
-        extract = false
-
-        [resources.sources.vanilla-snapshot]
-        url = "https://piston-data.mojang.com/v1/objects/8dd1a28015f51b1803213892b50b7b4fc76e594d/server.jar"
-        sha256 = "c03fa6f39daa69ddf413c965a3a83084db746a7a138ce535a693293b5472d363"
-        rename = "server.jar"
-        in_subdir = false
-        extract = false
-        
-        [resources.sources.spigot]
-        url = "https://download.getbukkit.org/spigot/spigot-1.20.1.jar"
-        sha256 = "df672a8effb69fa30bbfcad3345fa8796442bf11bf509da5f6f84c655f743f2d"
-        rename = "server.jar"
-        in_subdir = false
-        extract = false
+        extract = true
 
     [resources.ports]
-    main.default = 25565
+    main.default = 19132
     main.exposed = "TCP"
-    rconport.default = 25575
-    rconport.exposed = "TCP"
 
     [resources.system_user]
 
@@ -100,15 +34,4 @@ ram.runtime = "50M"
     [resources.permissions]
 
     [resources.apt]
-    packages = "openjdk-17-jre"
-  
-
-    # [resources.apt]
-    # packages_from_raw_bash = """
-    # debian=$(lsb_release --codename --short)
-    # if [[ $debian = "bullseye" ]]; then
-    #     echo "openjdk-11-jre";
-    # elif [[ $debian = "bookworm" ]]; then
-    #     echo "openjdk-17-jre";
-    # fi
-    # """
+    packages = "mkfifo"

@@ -1,1 +1,0 @@
-En installant cette application, vous acceptez le CLUF Minecraft : https://account.mojang.com/documents/minecraft_eula.
