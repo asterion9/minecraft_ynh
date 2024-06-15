@@ -32,6 +32,3 @@ ram.runtime = "500M"
     [resources.install_dir]
 
     [resources.permissions]
-
-    [resources.apt]
-    packages = "mkfifo"
