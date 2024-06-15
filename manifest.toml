@@ -4,7 +4,7 @@ id = "minecraft_bedrock"
 name = "Minecraft Bedrock Server"
 description.en = "Three-dimensional sandbox construction game"
 
-version = "1.20.71~ynh1"
+version = "1.21.0.03~ynh1"
 
 [integration]
 yunohost = ">= 11.2"
@@ -18,14 +18,14 @@ ram.runtime = "500M"
 [resources]
     [resources.sources]
         [resources.sources.main]
-        url = "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.20.71.01.zip"
+        url = "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.21.0.03.zip"
         sha256 = "47730ab2692c03870b5879b81aa763130fc4d120fe3cf36073c7d906b1a8065c"
         in_subdir = false
         extract = true
 
     [resources.ports]
     main.default = 19132
-    main.exposed = "TCP"
+    main.exposed = "UDP"
 
     [resources.system_user]
 
