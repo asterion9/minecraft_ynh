@@ -4,7 +4,7 @@ id = "minecraft_bedrock"
 name = "Minecraft Bedrock Server"
 description.en = "Three-dimensional sandbox construction game"
 
-version = "1.21.0.03~ynh1"
+version = "1.21.3.01~ynh1"
 
 [integration]
 yunohost = ">= 11.2"
